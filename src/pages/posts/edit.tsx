@@ -1,16 +1,25 @@
-import { Create, useForm, useSelect } from "@refinedev/antd";
+import { Edit, useForm, useSelect ,  getValueFromEvent } from "@refinedev/antd";
 import MDEditor from "@uiw/react-md-editor";
-import { Form, Input, Select } from "antd";
+import { Form, Input, Select , Upload} from "antd";
+import { useApiUrl } from "@refinedev/core";
 
-export const BlogPostCreate = () => {
-  const { formProps, saveButtonProps } = useForm({});
+export const BlogPostEdit = () => {
+  const { formProps, saveButtonProps, queryResult, formLoading } = useForm({});
+
+  const blogPostsData = queryResult?.data?.data;
 
   const { selectProps: categorySelectProps } = useSelect({
     resource: "categories",
+    defaultValue: blogPostsData?.category?.id,
+    queryOptions: {
+      enabled: !!blogPostsData?.category?.id,
+    },
   });
 
+  const apiUrl = useApiUrl();
+
   return (
-    <Create saveButtonProps={saveButtonProps}>
+    <Edit saveButtonProps={saveButtonProps} isLoading={formLoading}>
       <Form {...formProps} layout="vertical">
         <Form.Item
           label={"Title"}
@@ -37,6 +46,7 @@ export const BlogPostCreate = () => {
         <Form.Item
           label={"Category"}
           name={["category", "id"]}
+          initialValue={formProps?.initialValues?.category?.id}
           rules={[
             {
               required: true,
@@ -45,7 +55,7 @@ export const BlogPostCreate = () => {
         >
           <Select {...categorySelectProps} />
         </Form.Item>
-        <Form.Item
+        {/* <Form.Item
           label={"Status"}
           name={["status"]}
           initialValue={"draft"}
@@ -64,8 +74,26 @@ export const BlogPostCreate = () => {
             ]}
             style={{ width: 120 }}
           />
+        </Form.Item> */}
+        <Form.Item label="Image">
+          <Form.Item
+            name="image"
+            valuePropName="fileList"
+            getValueFromEvent={getValueFromEvent}
+            noStyle
+          >
+            <Upload.Dragger
+              name="file"
+              action={`${apiUrl}/media/upload`}
+              listType="picture"
+              maxCount={5}
+              multiple
+            >
+              <p className="ant-upload-text">Drag & drop a file in this area</p>
+            </Upload.Dragger>
+          </Form.Item>
         </Form.Item>
       </Form>
-    </Create>
+    </Edit>
   );
 };

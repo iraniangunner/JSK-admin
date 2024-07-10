@@ -50,12 +50,12 @@ export const BlogPostList = () => {
             )
           }
         />
-        <Table.Column dataIndex="status" title={"Status"} />
+         {/* <Table.Column dataIndex="status" title={"Status"} /> */}
         <Table.Column
           dataIndex={["createdAt"]}
           title={"Created at"}
           render={(value: any) => <DateField value={value} />}
-        />
+        /> 
         <Table.Column
           title={"Actions"}
           dataIndex="actions"

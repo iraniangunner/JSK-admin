@@ -1,6 +1,6 @@
-import { DateField, MarkdownField, Show, TextField } from "@refinedev/antd";
+import { DateField, MarkdownField, Show, TextField , ImageField  } from "@refinedev/antd";
 import { useOne, useShow } from "@refinedev/core";
-import { Typography } from "antd";
+import { Typography , Space  } from "antd";
 
 const { Title } = Typography;
 
@@ -32,10 +32,21 @@ export const BlogPostShow = () => {
           categoryIsLoading ? <>Loading...</> : <>{categoryData?.data?.title}</>
         }
       />
-      <Title level={5}>{"Status"}</Title>
-      <TextField value={record?.status} />
+      {/* <Title level={5}>{"Status"}</Title>
+      <TextField value={record?.status} /> */}
       <Title level={5}>{"CreatedAt"}</Title>
       <DateField value={record?.createdAt} />
+      <Title level={5}>Images</Title>
+      <Space wrap>
+        {record?.image.map((img:any) => (
+          <ImageField
+            key={img.name}
+            value={img.url}
+            title={img.name}
+            width={200}
+          />
+        ))}
+      </Space>
     </Show>
   );
 };
