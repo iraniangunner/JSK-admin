@@ -2,6 +2,7 @@ import { Create, useForm, useSelect, getValueFromEvent } from "@refinedev/antd";
 import MDEditor from "@uiw/react-md-editor";
 import { Form, Input, Select, Upload } from "antd";
 import { useApiUrl } from "@refinedev/core";
+import { file2Base64 } from "@refinedev/core";
 
 export const BlogPostCreate = () => {
   const { formProps, saveButtonProps } = useForm({});
@@ -14,7 +15,36 @@ export const BlogPostCreate = () => {
 
   return (
     <Create saveButtonProps={saveButtonProps}>
-      <Form {...formProps} layout="vertical">
+      <Form
+        {...formProps}
+        // onFinish={async (values) => {
+        //   const base64Files = [];
+        //   // @ts-ignore
+        //   const { images } = values;
+
+        //   for (const file of images) {
+        //     if (file.originFileObj) {
+        //       const base64String = await file2Base64(file);
+
+        //       base64Files.push({
+        //         ...file,
+        //         base64String,
+        //       });
+        //     } else {
+        //       base64Files.push(file);
+        //     }
+        //   }
+
+        //   return (
+        //     formProps.onFinish &&
+        //     formProps.onFinish({
+        //       ...values,
+        //       images: base64Files.map((f) => f.response?.location),
+        //     })
+        //   );
+        // }}
+        layout="vertical"
+      >
         <Form.Item
           label={"Title"}
           name={["title"]}
@@ -28,7 +58,7 @@ export const BlogPostCreate = () => {
         </Form.Item>
         <Form.Item
           label={"Content"}
-          name="content"
+          name={["description"]}
           rules={[
             {
               required: true,
@@ -39,7 +69,7 @@ export const BlogPostCreate = () => {
         </Form.Item>
         <Form.Item
           label={"Category"}
-          name={["category", "id"]}
+          name={["categoryId"]}
           rules={[
             {
               required: true,
@@ -48,36 +78,28 @@ export const BlogPostCreate = () => {
         >
           <Select {...categorySelectProps} />
         </Form.Item>
-        {/* <Form.Item
-          label={"Status"}
-          name={["status"]}
-          initialValue={"draft"}
+        <Form.Item
+          label={"Price"}
+          name={["price"]}
           rules={[
             {
               required: true,
             },
           ]}
         >
-          <Select
-            defaultValue={"draft"}
-            options={[
-              { value: "draft", label: "Draft" },
-              { value: "published", label: "Published" },
-              { value: "rejected", label: "Rejected" },
-            ]}
-            style={{ width: 120 }}
-          />
-        </Form.Item> */}
+          <Input />
+        </Form.Item>
+
         <Form.Item label="Image">
           <Form.Item
-            name="image"
+            name={["images"]}
             valuePropName="fileList"
             getValueFromEvent={getValueFromEvent}
             noStyle
           >
             <Upload.Dragger
               name="file"
-              action={`${apiUrl}/media/upload`}
+              action={`${apiUrl}/files/upload`}
               listType="picture"
               maxCount={5}
               multiple

@@ -32,27 +32,27 @@ export const BlogPostList = () => {
         <Table.Column dataIndex="id" title={"ID"} />
         <Table.Column dataIndex="title" title={"Title"} />
         <Table.Column
-          dataIndex="content"
-          title={"Content"}
+          dataIndex="description"
+          title={"Description"}
           render={(value: any) => {
             if (!value) return "-";
             return <MarkdownField value={value.slice(0, 80) + "..."} />;
           }}
         />
         <Table.Column
-          dataIndex={"category"}
+          dataIndex="category"
           title={"Category"}
           render={(value) =>
             categoryIsLoading ? (
               <>Loading...</>
             ) : (
-              categoryData?.data?.find((item) => item.id === value?.id)?.title
+              categoryData?.data?.find((item) => item.id === value?.id)?.name
             )
           }
         />
          {/* <Table.Column dataIndex="status" title={"Status"} /> */}
         <Table.Column
-          dataIndex={["createdAt"]}
+          dataIndex={["creationAt"]}
           title={"Created at"}
           render={(value: any) => <DateField value={value} />}
         /> 

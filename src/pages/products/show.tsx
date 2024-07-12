@@ -1,6 +1,12 @@
-import { DateField, MarkdownField, Show, TextField , ImageField  } from "@refinedev/antd";
+import {
+  DateField,
+  MarkdownField,
+  Show,
+  TextField,
+  ImageField,
+} from "@refinedev/antd";
 import { useOne, useShow } from "@refinedev/core";
-import { Typography , Space  } from "antd";
+import { Typography, Space } from "antd";
 
 const { Title } = Typography;
 
@@ -25,24 +31,24 @@ export const BlogPostShow = () => {
       <Title level={5}>{"Title"}</Title>
       <TextField value={record?.title} />
       <Title level={5}>{"Content"}</Title>
-      <MarkdownField value={record?.content} />
+      <MarkdownField value={record?.description} />
       <Title level={5}>{"Category"}</Title>
       <TextField
         value={
-          categoryIsLoading ? <>Loading...</> : <>{categoryData?.data?.title}</>
+          categoryIsLoading ? <>Loading...</> : <>{categoryData?.data?.name}</>
         }
       />
-      {/* <Title level={5}>{"Status"}</Title>
-      <TextField value={record?.status} /> */}
+    
       <Title level={5}>{"CreatedAt"}</Title>
-      <DateField value={record?.createdAt} />
+      <DateField value={record?.creationAt} />
       <Title level={5}>Images</Title>
       <Space wrap>
-        {record?.image.map((img:any) => (
+        {record?.images.map((img: any, index: any) => (
           <ImageField
-            key={img.name}
-            value={img.url}
-            title={img.name}
+            key={index}
+            value={img.replace(/[\[\]\\"]/g, "")}
+            // value={img.url}
+            // title={img.name}
             width={200}
           />
         ))}

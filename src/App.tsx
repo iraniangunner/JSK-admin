@@ -28,7 +28,7 @@ import {
   BlogPostEdit,
   BlogPostList,
   BlogPostShow,
-} from "./pages/posts";
+} from "./pages/products";
 import {
   CategoryCreate,
   CategoryEdit,
@@ -48,17 +48,17 @@ function App() {
           <AntdApp>
             <DevtoolsProvider>
               <Refine
-                dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
+                dataProvider={dataProvider("https://api.escuelajs.co/api/v1")}
                 notificationProvider={useNotificationProvider}
                 routerProvider={routerBindings}
                 authProvider={authProvider}
                 resources={[
                   {
-                    name: "posts",
-                    list: "/posts",
-                    create: "/posts/create",
-                    edit: "/posts/edit/:id",
-                    show: "/posts/show/:id",
+                    name: "products",
+                    list: "/products",
+                    create: "/products/create",
+                    edit: "/products/edit/:id",
+                    show: "/products/show/:id",
                     meta: {
                       canDelete: true,
                     },
@@ -89,9 +89,7 @@ function App() {
                         fallback={<CatchAllNavigate to="/login" />}
                       >
                         <ThemedLayoutV2
-                          Title={(props) => (
-                            <ThemedTitleV2 {...props} text="JSK_Admin_Panel"/>
-                          )}
+                          Title={(props) => <ThemedTitleV2 {...props} text="JSK_Admin"/>}
                           Header={Header}
                           Sider={(props) => <ThemedSiderV2 {...props} fixed />}
                         >
@@ -102,9 +100,9 @@ function App() {
                   >
                     <Route
                       index
-                      element={<NavigateToResource resource="posts" />}
+                      element={<NavigateToResource resource="products" />}
                     />
-                    <Route path="/posts">
+                    <Route path="/products">
                       <Route index element={<BlogPostList />} />
                       <Route path="create" element={<BlogPostCreate />} />
                       <Route path="edit/:id" element={<BlogPostEdit />} />
