@@ -8,12 +8,15 @@ import {
   useTable,
 } from "@refinedev/antd";
 import { type BaseRecord, useMany } from "@refinedev/core";
+import { useDocumentTitle } from "@refinedev/react-router-v6/.";
 import { Space, Table } from "antd";
 
 export const BlogPostList = () => {
+
   const { tableProps } = useTable({
     syncWithLocation: true,
   });
+
 
   const { data: categoryData, isLoading: categoryIsLoading } = useMany({
     resource: "categories",

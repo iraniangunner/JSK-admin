@@ -3,6 +3,15 @@ import { DevtoolsProvider } from "@refinedev/devtools";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
 import {
+  type Action,
+  type IResourceItem,
+  useParsed,
+  useTranslate,
+  generateDefaultDocumentTitle,
+  useUserFriendlyName,
+} from "@refinedev/core";
+
+import {
   ErrorComponent,
   ThemedLayoutV2,
   ThemedSiderV2,
@@ -40,6 +49,23 @@ import { Login } from "./pages/login";
 import { Register } from "./pages/register";
 
 function App() {
+  const customTitleHandler = ({
+    resource,
+    action,
+    params,
+  }: {
+    resource?: IResourceItem;
+    action?: Action;
+    params?: Record<string, string | undefined>;
+  }) => {
+    let title = "JSK_admin"; // Default title
+
+    if (resource && action) {
+      title = `JSK_admin | ${resource.name} ${params?.id ??""}`;
+    }
+  console.log(title)
+    return title;
+  };
   return (
     <BrowserRouter>
       {/* <GitHubBanner /> */}
@@ -139,7 +165,7 @@ function App() {
 
                 <RefineKbar />
                 <UnsavedChangesNotifier />
-                <DocumentTitleHandler />
+                <DocumentTitleHandler handler={customTitleHandler} />
               </Refine>
               {/* <DevtoolsPanel /> */}
             </DevtoolsProvider>
