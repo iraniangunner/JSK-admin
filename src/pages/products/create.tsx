@@ -17,32 +17,32 @@ export const BlogPostCreate = () => {
     <Create saveButtonProps={saveButtonProps}>
       <Form
         {...formProps}
-        // onFinish={async (values) => {
-        //   const base64Files = [];
-        //   // @ts-ignore
-        //   const { images } = values;
+        onFinish={async (values) => {
+          const base64Files = [];
+          // @ts-ignore
+          const { images } = values;
 
-        //   for (const file of images) {
-        //     if (file.originFileObj) {
-        //       const base64String = await file2Base64(file);
+          for (const file of images) {
+            if (file.originFileObj) {
+              const base64String = await file2Base64(file);
 
-        //       base64Files.push({
-        //         ...file,
-        //         base64String,
-        //       });
-        //     } else {
-        //       base64Files.push(file);
-        //     }
-        //   }
+              base64Files.push({
+                ...file,
+                base64String,
+              });
+            } else {
+              base64Files.push(file);
+            }
+          }
 
-        //   return (
-        //     formProps.onFinish &&
-        //     formProps.onFinish({
-        //       ...values,
-        //       images: base64Files.map((f) => f.response?.location),
-        //     })
-        //   );
-        // }}
+          return (
+            formProps.onFinish &&
+            formProps.onFinish({
+              ...values,
+              images: base64Files,
+            })
+          );
+        }}
         layout="vertical"
       >
         <Form.Item
