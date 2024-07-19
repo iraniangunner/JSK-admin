@@ -2,14 +2,7 @@ import { Authenticated, Refine } from "@refinedev/core";
 import { DevtoolsProvider } from "@refinedev/devtools";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
-import {
-  type Action,
-  type IResourceItem,
-  useParsed,
-  useTranslate,
-  generateDefaultDocumentTitle,
-  useUserFriendlyName,
-} from "@refinedev/core";
+import { type Action, type IResourceItem } from "@refinedev/core";
 
 import {
   ErrorComponent,
@@ -160,7 +153,6 @@ function App() {
                     />
                   </Route>
                 </Routes>
-
                 <RefineKbar />
                 <UnsavedChangesNotifier />
                 <DocumentTitleHandler handler={customTitleHandler} />
