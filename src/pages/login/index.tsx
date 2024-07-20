@@ -5,7 +5,7 @@ export const Login = () => {
   return (
     <AuthPage
       type="login"
-      // title="JSK_Admin"
+      title="JSK_admin"
       formProps={{
         initialValues: { email: "demo@refine.dev", password: "demodemo" },
       }}
