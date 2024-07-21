@@ -9,7 +9,7 @@ export const CategoryEdit = () => {
       <Form {...formProps} layout="vertical">
         <Form.Item
           label={"Title"}
-          name={["title"]}
+          name={["name"]}
           rules={[
             {
               required: true,
