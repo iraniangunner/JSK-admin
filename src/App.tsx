@@ -55,7 +55,9 @@ function App() {
     let title = "JSK_admin"; // Default title
 
     if (resource && action) {
-      title = `JSK_admin | ${resource.name} | ${action} ${params?.id ?? ""}`;
+      title = `JSK_admin | ${resource.name} ${
+        action === "list" ? "" : "| " + action
+      } ${params?.id ? "| " + params.id : ""}`;
     }
     return title;
   };
