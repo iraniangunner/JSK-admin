@@ -40,6 +40,7 @@ import {
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
+import { UserEdit } from "./pages/users/list";
 
 function App() {
   const customTitleHandler = ({
@@ -90,6 +91,13 @@ function App() {
                       canDelete: true,
                     },
                   },
+                  {
+                    name: "users",
+                    list: "/users",
+                    // create:"/users/create",
+                    edit: "/users/edit/:id",
+                    // edit:"/products/edit/:id"
+                  },
                 ]}
                 options={{
                   syncWithLocation: true,
@@ -133,6 +141,17 @@ function App() {
                       <Route path="edit/:id" element={<CategoryEdit />} />
                       <Route path="show/:id" element={<CategoryShow />} />
                     </Route>
+                    <Route path="/users">
+                      <Route index element={<UserEdit />} />
+                      {/* <Route path="create" element={<CategoryCreate />} />
+                      <Route path="edit/:id" element={<CategoryEdit />} />
+                      <Route path="show/:id" element={<CategoryShow />} /> */}
+                    </Route>
+                    {/* 
+                    <Route path="/about-us-edit">
+                      <Route index element={<EditPage />} />
+                    </Route> */}
+
                     <Route path="*" element={<ErrorComponent />} />
                   </Route>
                   <Route

@@ -4,20 +4,29 @@ import { Form, Input, Select, Upload } from "antd";
 import { useApiUrl } from "@refinedev/core";
 import { file2Base64 } from "@refinedev/core";
 
-export const BlogPostEdit = () => {
-  const { formProps, saveButtonProps, queryResult, formLoading } = useForm({});
+export const UserEdit = () => {
+  const { formProps, saveButtonProps, queryResult, formLoading } = useForm({
+    resource: "users",
+    action: "edit",
+    id: 2,
+  });
+
+
+
 
   const blogPostsData = queryResult?.data?.data;
 
-  const { selectProps: categorySelectProps } = useSelect({
-    resource: "categories",
-    defaultValue: blogPostsData?.category?.id,
-    queryOptions: {
-      enabled: !!blogPostsData?.category?.id,
-    },
-  });
+console.log(blogPostsData)
 
-  const apiUrl = useApiUrl();
+  // const { selectProps: categorySelectProps } = useSelect({
+  //   resource: "categories",
+  //   defaultValue: blogPostsData?.category?.id,
+  //   queryOptions: {
+  //     enabled: !!blogPostsData?.category?.id,
+  //   },
+  // });
+
+  // const apiUrl = useApiUrl();
 
   return (
     <Edit saveButtonProps={saveButtonProps} isLoading={formLoading}>
@@ -58,7 +67,7 @@ export const BlogPostEdit = () => {
       >
         <Form.Item
           label={"Title"}
-          name={["title"]}
+          name={["email"]}
           rules={[
             {
               required: true,
@@ -69,7 +78,7 @@ export const BlogPostEdit = () => {
         </Form.Item>
         <Form.Item
           label={"Content"}
-          name="description"
+          name="password"
           rules={[
             {
               required: true,
@@ -80,8 +89,20 @@ export const BlogPostEdit = () => {
         </Form.Item>
         <Form.Item
           label={"Category"}
-          name={["categoryId"]}
-          initialValue={formProps?.initialValues?.category?.id}
+          name={["role"]}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        {/* <Form.Item
+          label={"Category"}
+          name={["role"]}
+        
+          initialValue={formProps?.initialValues?.role?.id}
           rules={[
             {
               required: true,
@@ -89,9 +110,9 @@ export const BlogPostEdit = () => {
           ]}
         >
           <Select {...categorySelectProps} />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item label="Image">
+        {/* <Form.Item label="Image">
           <Form.Item
             name={["images"]}
             valuePropName="fileList"
@@ -108,7 +129,7 @@ export const BlogPostEdit = () => {
               <p className="ant-upload-text">Drag & drop a file in this area</p>
             </Upload.Dragger>
           </Form.Item>
-        </Form.Item>
+        </Form.Item> */}
       </Form>
     </Edit>
   );
